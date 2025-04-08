@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [AuthController::class, 'index']);
+
+Route::get('/register', function(){
+    return view('register');
 });
