@@ -13,3 +13,11 @@ Route::get('/register', function(){
 Route::get('/login', function(){
     return view('login');
 })->name('login')->middleware('guest');
+
+Route::get('/dashboard', function(){
+    return view('dashboard');
+})->name('dashboard')->middleware('auth:api');
+
+Route::get('/films', function(){
+    return view("films");
+})->name('films');
