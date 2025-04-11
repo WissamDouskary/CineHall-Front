@@ -6,7 +6,7 @@ document.getElementById('loginform').addEventListener('submit', async (e) => {
     }
     
     const conn = new XMLHttpRequest();
-    conn.open('POST', 'http://localhost:8000/api/login', true);
+    conn.open('POST', 'http://127.0.0.1:8000/api/login', true);
     conn.setRequestHeader('Content-Type', 'application/json');
     conn.setRequestHeader('Accept', 'application/json');
 
