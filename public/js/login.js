@@ -13,10 +13,18 @@ document.getElementById('loginform').addEventListener('submit', async (e) => {
     conn.onreadystatechange = function(){
         if(conn.readyState === 4){
             const messageDiv = document.getElementById('message');
+            
             try{
                 const response = JSON.parse(conn.responseText);
                 if (conn.status === 201) {
+                    localStorage.setItem('token', response.token);
                     messageDiv.innerText = response.message;
+
+                    if(response.user.is_admin == 'admin'){
+                        window.location.href = '/dashboard';
+                    }else{
+                        window.location.href = '/films';
+                    }
                 }
             }
                 catch (error) {
