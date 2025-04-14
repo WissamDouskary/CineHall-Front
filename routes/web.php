@@ -21,3 +21,7 @@ Route::get('/dashboard', function(){
 Route::get('/films', function(){
     return view("films");
 })->name('films');
+
+Route::get('/films/{id}', function($id){
+    return view("film-preview", ['filmId' => $id]);
+})->name('film-preview');

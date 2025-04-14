@@ -258,29 +258,25 @@
 
         function convertYouTubeToEmbed(url) {
             try {
-                // Handle short "youtu.be" URL
                 if (url.includes("youtu.be")) {
                     const videoId = url.split("/").pop().split("?")[0];
                     return `https://www.youtube.com/embed/${videoId}`;
                 }
 
-                // Handle standard "youtube.com/watch?v=..." URL
                 if (url.includes("youtube.com/watch")) {
                     const urlObj = new URL(url);
                     const videoId = urlObj.searchParams.get("v");
                     return `https://www.youtube.com/embed/${videoId}`;
                 }
 
-                // Handle embed URL (already in embed format)
                 if (url.includes("youtube.com/embed")) {
                     return url;
                 }
 
-                // Return null if URL does not match any valid YouTube format
                 return null;
             } catch (error) {
                 console.error("Invalid URL:", error);
-                return "Invalid URL"; // Return a message if there was an error
+                return "Invalid URL";
             }
         }
     </script>
