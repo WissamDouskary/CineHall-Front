@@ -20,7 +20,7 @@ document.getElementById('loginform').addEventListener('submit', async (e) => {
                     localStorage.setItem('token', response.token);
                     messageDiv.innerText = response.message;
 
-                    if(response.user.is_admin == 'admin'){
+                    if(response.user.is_admin){
                         window.location.href = '/dashboard';
                     }else{
                         window.location.href = '/films';
