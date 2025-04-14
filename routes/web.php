@@ -16,7 +16,7 @@ Route::get('/login', function(){
 
 Route::get('/dashboard', function(){
     return view('dashboard');
-})->name('dashboard')->middleware('auth:api');
+})->name('dashboard');
 
 Route::get('/films', function(){
     return view("films");
