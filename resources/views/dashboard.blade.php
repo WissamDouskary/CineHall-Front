@@ -22,6 +22,7 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <p class=" text-green-600" id="infopara"></p>
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
@@ -123,32 +124,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const modal = document.getElementById('createFilmModal');
-        const openModalBtn = document.getElementById('openModalBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const cancelBtn = document.getElementById('cancelBtn');
-
-        openModalBtn.addEventListener('click', () => {
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        });
-
-        const closeModal = () => {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        };
-
-        closeModalBtn.addEventListener('click', closeModal);
-        cancelBtn.addEventListener('click', closeModal);
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-    </script>
 
     <script src="{{ asset('js/dashboard.js') }}"></script>
 </body>
