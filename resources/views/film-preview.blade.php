@@ -86,72 +86,6 @@
                 <p class="text-gray-500">Loading...</p>
             </div>
         </div>
-
-        <!-- Similar Films -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-6">You Might Also Like</h2>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                <!-- Similar Film 1 -->
-                <a href="#" class="group">
-                    <div class="rounded-lg overflow-hidden shadow-md bg-white">
-                        <img src="https://via.placeholder.com/300x450" alt="Movie poster"
-                            class="w-full h-64 object-cover group-hover:opacity-80 transition-opacity">
-                        <div class="p-3">
-                            <h3 class="font-medium text-gray-900 group-hover:text-rose-600">Interstellar</h3>
-                            <p class="text-sm text-gray-500">Sci-Fi</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Similar Film 2 -->
-                <a href="#" class="group">
-                    <div class="rounded-lg overflow-hidden shadow-md bg-white">
-                        <img src="https://via.placeholder.com/300x450" alt="Movie poster"
-                            class="w-full h-64 object-cover group-hover:opacity-80 transition-opacity">
-                        <div class="p-3">
-                            <h3 class="font-medium text-gray-900 group-hover:text-rose-600">The Matrix</h3>
-                            <p class="text-sm text-gray-500">Sci-Fi</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Similar Film 3 -->
-                <a href="#" class="group">
-                    <div class="rounded-lg overflow-hidden shadow-md bg-white">
-                        <img src="https://via.placeholder.com/300x450" alt="Movie poster"
-                            class="w-full h-64 object-cover group-hover:opacity-80 transition-opacity">
-                        <div class="p-3">
-                            <h3 class="font-medium text-gray-900 group-hover:text-rose-600">Tenet</h3>
-                            <p class="text-sm text-gray-500">Action, Sci-Fi</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Similar Film 4 -->
-                <a href="#" class="group">
-                    <div class="rounded-lg overflow-hidden shadow-md bg-white">
-                        <img src="https://via.placeholder.com/300x450" alt="Movie poster"
-                            class="w-full h-64 object-cover group-hover:opacity-80 transition-opacity">
-                        <div class="p-3">
-                            <h3 class="font-medium text-gray-900 group-hover:text-rose-600">Shutter Island</h3>
-                            <p class="text-sm text-gray-500">Thriller</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Similar Film 5 -->
-                <a href="#" class="group">
-                    <div class="rounded-lg overflow-hidden shadow-md bg-white">
-                        <img src="https://via.placeholder.com/300x450" alt="Movie poster"
-                            class="w-full h-64 object-cover group-hover:opacity-80 transition-opacity">
-                        <div class="p-3">
-                            <h3 class="font-medium text-gray-900 group-hover:text-rose-600">Memento</h3>
-                            <p class="text-sm text-gray-500">Mystery, Thriller</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
     </main>
 
     <div id="booking-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
@@ -162,9 +96,27 @@
             <form id="booking-form">
                 <input type="hidden" name="session_id" id="booking-session-id">
 
-                <label for="seat" class="block mb-2 text-sm font-medium">Seat Number:</label>
-                <input type="number" id="seat" name="seat" min="1"
-                    class="w-full border px-3 py-2 rounded-md mb-4" required>
+                <label for="seat-type" class="block mb-2 text-sm font-medium">Seat Type:</label>
+                <select id="seat-type" name="type" class="w-full border px-3 py-2 rounded-md mb-4" required>
+                    <option value="solo">Solo</option>
+                    <option value="couple">Couple</option>
+                </select>
+
+                <div id="solo-seat-group" class="mb-4">
+                    <label for="seat" class="block mb-2 text-sm font-medium">Seat Number:</label>
+                    <input type="number" id="seat" name="seat" min="1"
+                        class="w-full border px-3 py-2 rounded-md" required>
+                </div>
+
+                <div id="couple-seat-group" class="mb-4 hidden">
+                    <label class="block mb-2 text-sm font-medium">Seat Numbers (Couple):</label>
+                    <div class="flex space-x-2">
+                        <input type="number" id="seat1" name="seat1" min="1"
+                            class="w-1/2 border px-3 py-2 rounded-md">
+                        <input type="number" id="seat2" name="seat2" min="1"
+                            class="w-1/2 border px-3 py-2 rounded-md">
+                    </div>
+                </div>
 
                 <button type="submit" class="w-full bg-rose-600 text-white py-2 rounded-md hover:bg-rose-700">Confirm
                     Booking</button>
@@ -298,7 +250,25 @@
             e.preventDefault();
 
             const sessionId = document.getElementById("booking-session-id").value;
-            const seat = parseInt(document.getElementById("seat").value);
+            const type = document.getElementById("seat-type").value;
+            let seats = [];
+
+            if (type === "solo") {
+                const seat = parseInt(document.getElementById("seat").value);
+                if (isNaN(seat)) {
+                    alert("Please enter a valid seat number.");
+                    return;
+                }
+                seats = [seat];
+            } else if (type === "couple") {
+                const seat1 = parseInt(document.getElementById("seat1").value);
+                const seat2 = parseInt(document.getElementById("seat2").value);
+                if (isNaN(seat1) || isNaN(seat2)) {
+                    alert("Please enter two valid seat numbers.");
+                    return;
+                }
+                seats = [seat1, seat2];
+            }
 
             fetch("http://127.0.0.1:8000/api/reservations", {
                     method: "POST",
@@ -307,21 +277,27 @@
                         "Authorization": "Bearer " + localStorage.getItem("token")
                     },
                     body: JSON.stringify({
-                        session_id: sessionId,
-                        type: "solo",
-                        seats: [seat]
+                        session_id: parseInt(sessionId),
+                        type: type,
+                        seats: seats
                     })
                 })
                 .then(res => res.json())
                 .then(data => {
                     console.log("Reservation successful:", data);
-                    alert(" Booking confirmed!");
+                    alert("Booking confirmed!");
                     closeBookingModal();
                 })
                 .catch(err => {
                     console.error("Booking failed:", err);
-                    alert(" Booking failed.");
+                    alert("Booking failed.");
                 });
+        });
+
+        document.getElementById("seat-type").addEventListener("change", function() {
+            const type = this.value;
+            document.getElementById("solo-seat-group").classList.toggle("hidden", type === "couple");
+            document.getElementById("couple-seat-group").classList.toggle("hidden", type === "solo");
         });
     </script>
 </body>
