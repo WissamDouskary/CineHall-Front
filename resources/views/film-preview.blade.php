@@ -30,26 +30,25 @@
 
                 <!-- Film Info -->
                 <div class="flex-1">
-                    <h1 id="film-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Film Title</h1>
+                    <h1 id="film-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Loading ...</h1>
 
                     <div class="flex flex-wrap items-center mb-6">
                         <span id="film-genre"
                             class="px-3 py-1 bg-rose-100 text-rose-800 text-sm rounded-full mr-3 mb-2">Genre</span>
                         <div class="flex items-center mr-4 mb-2">
                             <i class="fas fa-clock text-rose-600 mr-2"></i>
-                            <span id="film-duration" class="text-gray-700">120 min</span>
+                            <span id="film-duration" class="text-gray-700">Loading ...</span>
                         </div>
                         <div class="flex items-center mb-2">
                             <i class="fas fa-star text-yellow-500 mr-2"></i>
-                            <span class="text-gray-700">8.5/10</span>
+                            <span class="text-gray-700">Loading ...</span>
                         </div>
                     </div>
 
                     <div class="mb-6">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2">Synopsis</h2>
                         <p id="film-description" class="text-gray-700 leading-relaxed">
-                            Film description will appear here. This is a placeholder text that will be replaced with the
-                            actual film description from the database.
+                            Loading ...
                         </p>
                     </div>
 
@@ -80,61 +79,11 @@
 
         <!-- Showtimes Section -->
         <div id="showtimes" class="bg-white rounded-xl shadow-md p-6 md:p-8 mb-8">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Showtimes</h2>
-
+            <h2 class="text-2xl font-semibold text-gray-900 mb-6">Sessions</h2>
 
             <!-- Showtimes Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Theater 1 -->
-                <div class="border rounded-lg p-4">
-                    <h3 class="font-semibold text-gray-900 mb-3">Theater 1 - Standard</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">10:30
-                            AM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">1:15 PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">4:00 PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">6:45 PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">9:30 PM</a>
-                    </div>
-                </div>
-
-                <!-- Theater 2 -->
-                <div class="border rounded-lg p-4">
-                    <h3 class="font-semibold text-gray-900 mb-3">Theater 2 - IMAX</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">11:00
-                            AM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">2:30 PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">5:45 PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">8:15 PM</a>
-                    </div>
-                </div>
-
-                <!-- Theater 3 -->
-                <div class="border rounded-lg p-4">
-                    <h3 class="font-semibold text-gray-900 mb-3">Theater 3 - VIP</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">12:00
-                            PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">3:30 PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">7:00 PM</a>
-                        <a href="#"
-                            class="px-3 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm">10:15
-                            PM</a>
-                    </div>
-                </div>
+            <div id="session-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <p class="text-gray-500">Loading...</p>
             </div>
         </div>
 
@@ -205,6 +154,24 @@
         </div>
     </main>
 
+    <div id="booking-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-md p-6 w-96 relative">
+            <button onclick="closeBookingModal()"
+                class="absolute top-2 right-2 text-gray-600 hover:text-black text-lg">×</button>
+            <h3 class="text-lg font-semibold mb-4">Book Session</h3>
+            <form id="booking-form">
+                <input type="hidden" name="session_id" id="booking-session-id">
+
+                <label for="seat" class="block mb-2 text-sm font-medium">Seat Number:</label>
+                <input type="number" id="seat" name="seat" min="1"
+                    class="w-full border px-3 py-2 rounded-md mb-4" required>
+
+                <button type="submit" class="w-full bg-rose-600 text-white py-2 rounded-md hover:bg-rose-700">Confirm
+                    Booking</button>
+            </form>
+        </div>
+    </div>
+
 
 
     <script>
@@ -247,6 +214,39 @@
             allowfullscreen>
         </iframe>
     `;
+
+
+                        const sessionContainer = document.getElementById("session-container");
+                        sessionContainer.innerHTML = "";
+
+                        if (film.session && film.session.length > 0) {
+                            film.session.forEach(s => {
+                                const sessionCard = `
+  <div class="border rounded-lg p-4">
+      <h3 class="font-semibold text-gray-900 mb-3">${s.type} - ${s.language}</h3>
+      <div class="text-gray-700 text-sm mb-1"><strong>Start:</strong> ${formatDate(s.start_date)}</div>
+      <div class="text-gray-700 text-sm mb-3"><strong>End:</strong> ${formatDate(s.end_date)}</div>
+      <a href="" 
+         class="book-session-btn inline-block px-4 py-2 bg-rose-600 text-white rounded hover:bg-rose-700 text-sm" 
+         data-session-id="${s.id}">
+         Book This Session
+      </a>
+  </div>
+`;
+                                sessionContainer.innerHTML += sessionCard;
+                            });
+
+                            document.querySelectorAll(".book-session-btn").forEach(btn => {
+                                btn.addEventListener("click", (e) => {
+                                    e.preventDefault();
+                                    const sessionId = btn.dataset.sessionId;
+                                    openBookingModal(sessionId);
+                                });
+                            });
+                        } else {
+                            sessionContainer.innerHTML =
+                                "<p class='text-gray-500'>No sessions available for this film.</p>";
+                        }
                     } else {
                         document.getElementById("film-trailler").textContent = "Invalid trailer URL.";
                     }
@@ -278,6 +278,20 @@
                 console.error("Invalid URL:", error);
                 return "Invalid URL";
             }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleString();
+        }
+
+        function openBookingModal(sessionId) {
+            document.getElementById("booking-session-id").value = sessionId;
+            document.getElementById("booking-modal").classList.remove("hidden");
+        }
+
+        function closeBookingModal() {
+            document.getElementById("booking-modal").classList.add("hidden");
         }
     </script>
 </body>

@@ -59,7 +59,7 @@ function displayFilms(films) {
                         <span class="text-gray-300">★</span>
                         <span class="ml-1 text-gray-600 text-sm">(2.3k reviews)</span>
                     </div>
-                    <p class="text-gray-600 text-sm mb-4">A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.</p>
+                    <p class="text-gray-600 text-sm mb-4 truncate">${film.description}</p>
                     <a href='http://localhost:8001/films/${film.id}'><button
                         class="view-details w-full bg-rose-600 hover:bg-rose-700 text-white py-2 rounded-md transition"
                     >
