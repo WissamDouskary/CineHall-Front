@@ -315,12 +315,12 @@
                 .then(res => res.json())
                 .then(data => {
                     console.log("Reservation successful:", data);
-                    alert("🎉 Booking confirmed!");
+                    alert(" Booking confirmed!");
                     closeBookingModal();
                 })
                 .catch(err => {
                     console.error("Booking failed:", err);
-                    alert("❌ Booking failed.");
+                    alert(" Booking failed.");
                 });
         });
     </script>
