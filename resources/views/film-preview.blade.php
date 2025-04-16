@@ -293,6 +293,36 @@
         function closeBookingModal() {
             document.getElementById("booking-modal").classList.add("hidden");
         }
+
+        document.getElementById("booking-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const sessionId = document.getElementById("booking-session-id").value;
+            const seat = parseInt(document.getElementById("seat").value);
+
+            fetch("http://127.0.0.1:8000/api/reservations", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    },
+                    body: JSON.stringify({
+                        session_id: sessionId,
+                        type: "solo",
+                        seats: [seat]
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("Reservation successful:", data);
+                    alert("🎉 Booking confirmed!");
+                    closeBookingModal();
+                })
+                .catch(err => {
+                    console.error("Booking failed:", err);
+                    alert("❌ Booking failed.");
+                });
+        });
     </script>
 </body>
 
